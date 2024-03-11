@@ -46,7 +46,7 @@ public class CustomerService {
         repository.save(customer);
     }
 
-    public void deleteCustomer(Long id){
+    public void deleteCustomerById(Long id){
         if (!existsPersonWithId(id)){
             throw new ResourceNotFound("There's no customer with id [%s]".formatted(id));
         }

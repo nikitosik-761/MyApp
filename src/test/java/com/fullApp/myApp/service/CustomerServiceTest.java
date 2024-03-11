@@ -1,5 +1,6 @@
 package com.fullApp.myApp.service;
 
+import com.fullApp.myApp.exception.DuplicateException;
 import com.fullApp.myApp.exception.ResourceNotFound;
 import com.fullApp.myApp.models.Customer;
 import com.fullApp.myApp.models.CustomerRegistrationRequest;
@@ -104,7 +105,48 @@ class CustomerServiceTest {
     }
 
     @Test
-    void deleteCustomer() {
+    void insertCustomerWillThrowWhenEmailAlreadyExists(){
+        String email = "email@gmail.com";
+
+        when(customerRepository.existsCustomerByEmail(email)).thenReturn(true);
+
+        CustomerRegistrationRequest request = new CustomerRegistrationRequest(
+                "name",
+                email,
+                21
+        );
+
+
+        assertThatThrownBy(() -> underTest.insertCustomer(request))
+                .isInstanceOf(DuplicateException.class)
+                .hasMessage("Customer with email: [%s] already exists!".formatted(request.email()));
+
+        verify(customerRepository, never()).save(any());
+
+    }
+
+    @Test
+    void deleteCustomerById() {
+        Long id = 10L;
+        when(customerRepository.existsCustomerById(id)).thenReturn(true);
+
+        underTest.deleteCustomerById(id);
+
+        verify(customerRepository).deleteById(id);
+
+    }
+
+    @Test
+    void deleteCustomerByIdWillThrowWhenNotFound() {
+        Long id = 10L;
+        when(customerRepository.existsCustomerById(id)).thenReturn(false);
+
+        assertThatThrownBy(() -> underTest.deleteCustomerById(id))
+                .isInstanceOf(ResourceNotFound.class)
+                        .hasMessage("There's no customer with id [%s]".formatted(id));
+
+        verify(customerRepository, never()).deleteById(id);
+
     }
 
     @Test

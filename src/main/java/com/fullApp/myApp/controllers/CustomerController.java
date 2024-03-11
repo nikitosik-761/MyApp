@@ -40,7 +40,7 @@ public class CustomerController {
     public void deleteCustomer(
             @PathVariable("id") Long id
     ){
-        customerService.deleteCustomer(id);
+        customerService.deleteCustomerById(id);
     }
 
     @PutMapping("/{id}")
