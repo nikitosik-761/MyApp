@@ -1,6 +1,2 @@
-CREATE TABLE Customer(
-    id BIGSERIAL PRIMARY KEY ,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE,
-    age INT NOT NULL
-);
+CREATE DATABASE customer1;
+

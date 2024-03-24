@@ -27,3 +27,28 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
+  nikitosbarbos-api:
+    image: nikitosbarbos/nikitosbarbos-api:latest
+    container_name: nikitosbarbos-api
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - postgres
+    command: bash -c "sleep 2"
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+  spring:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
