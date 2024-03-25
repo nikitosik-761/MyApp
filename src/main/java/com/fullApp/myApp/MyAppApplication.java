@@ -26,6 +26,9 @@ public class MyAppApplication {
 			System.out.println("Test");
 
 
+			//
+
+
 			Customer customer =  Customer.builder()
 					.name(faker.name().fullName())
 					.email(faker.internet().safeEmailAddress())
