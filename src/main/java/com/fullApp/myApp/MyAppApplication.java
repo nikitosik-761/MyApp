@@ -24,6 +24,7 @@ public class MyAppApplication {
 			Random random = new Random();
 
 			System.out.println("Test");
+			System.out.println("New test");
 
 
 			Customer customer =  Customer.builder()
