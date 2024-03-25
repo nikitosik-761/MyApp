@@ -23,6 +23,8 @@ public class MyAppApplication {
 			Faker faker = new Faker();
 			Random random = new Random();
 
+			System.out.println("Test");
+
 
 			Customer customer =  Customer.builder()
 					.name(faker.name().fullName())
