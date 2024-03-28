@@ -10,7 +10,7 @@ record PingPong(String ping){}
 
     @GetMapping("/ping")
     public PingPong getPingPong(){
-          return new PingPong("Test Ping Pong");
+          return new PingPong("Test Ping Pong !!!!");
     }
 
 }
