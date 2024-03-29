@@ -42,4 +42,6 @@ jobs:
         run: mvn -ntp -B verify -Ddocker.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}} jib:build
       - name: Send Message TG
         run: >
-          curl -s -X POST https://api.telegram.org/bot${{ secrets.TG_TOKEN }}/sendMessage -d text="New version has been released" -d chat_id=${{ secrets.TG_CHAT }}
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TG_TOKEN }}/sendMessage
+          -d text="New version has been released: https://github.com/nikitosik-761/MyApp/commit/${{ github.sha }} - ${{ github.event.head_commit.message }} &#129395"
+          -d chat_id=${{ secrets.TG_CHAT }}
