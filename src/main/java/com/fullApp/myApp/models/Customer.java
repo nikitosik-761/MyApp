@@ -40,4 +40,10 @@ public class Customer {
     )
     private Integer age;
 
+    @Column(
+            nullable = false
+    )
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
 }

@@ -2,6 +2,7 @@ package com.fullApp.myApp.jdbc;
 
 import com.fullApp.myApp.AbstractTestcontainers;
 import com.fullApp.myApp.models.Customer;
+import com.fullApp.myApp.models.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(FAKER.internet().safeEmailAddress() + "_" + UUID.randomUUID())
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         List<Customer> actual = underTest.selectAllCustomers();
@@ -50,6 +52,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.insertCustomer(customer);
@@ -97,6 +100,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(name)
                 .email(email)
                 .age(20)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.insertCustomer(customer);
@@ -125,6 +129,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.insertCustomer(customer);
@@ -162,6 +167,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.insertCustomer(customer);
@@ -190,6 +196,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.insertCustomer(customer);
@@ -229,6 +236,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.insertCustomer(customer);
@@ -268,6 +276,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.insertCustomer(customer);
@@ -308,6 +317,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.insertCustomer(customer);
@@ -324,6 +334,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         update.setName("newName");
         update.setEmail(UUID.randomUUID().toString());
         update.setAge(100);
+        update.setGender(customer.getGender());
 
         underTest.updateCustomer(update);
 
@@ -341,6 +352,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.insertCustomer(customer);

@@ -3,6 +3,7 @@ package com.fullApp.myApp.journey;
 import com.fullApp.myApp.models.Customer;
 import com.fullApp.myApp.models.CustomerRegistrationRequest;
 import com.fullApp.myApp.models.CustomerUpdateRequest;
+import com.fullApp.myApp.models.Gender;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,10 @@ public class CustomerIntegrationTest {
         String name = faker.name().fullName();
         String email = faker.internet().safeEmailAddress() + "test";
         int age = RANDOM.nextInt(1,100);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-             name,email, age
+             name,email, age, gender
         );
 
 
@@ -66,6 +68,7 @@ public class CustomerIntegrationTest {
                 .name(name)
                 .email(email)
                 .age(age)
+                .gender(gender)
                 .build();
 
         assertThat(allCustomers)
@@ -98,9 +101,10 @@ public class CustomerIntegrationTest {
         String name = faker.name().fullName();
         String email = faker.internet().safeEmailAddress() + "test";
         int age = RANDOM.nextInt(1,100);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                name,email, age
+                name,email, age, gender
         );
 
 
@@ -157,9 +161,10 @@ public class CustomerIntegrationTest {
         String name = faker.name().fullName();
         String email = faker.internet().safeEmailAddress() + "test";
         int age = RANDOM.nextInt(1,100);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                name,email, age
+                name,email, age, gender
         );
 
 
@@ -222,7 +227,7 @@ public class CustomerIntegrationTest {
                 .getResponseBody();
 
         Customer expected = new Customer(
-                id, updatedName, email, age
+                id, updatedName, email, age, gender
         );
 
         assertThat(updatedCustomer).isEqualTo(expected);

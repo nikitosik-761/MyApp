@@ -5,6 +5,7 @@ import com.fullApp.myApp.exception.ResourceNotFound;
 import com.fullApp.myApp.models.Customer;
 import com.fullApp.myApp.models.CustomerRegistrationRequest;
 import com.fullApp.myApp.models.CustomerUpdateRequest;
+import com.fullApp.myApp.models.Gender;
 import com.fullApp.myApp.repo.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +48,8 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
-                21
+                21,
+                Gender.MALE
 
         );
 
@@ -77,13 +79,16 @@ class CustomerServiceTest {
     void insertCustomer() {
 
         String email = "email@gmail.com";
+        Gender gender = Gender.MALE;
 
         when(customerRepository.existsCustomerByEmail(email)).thenReturn(false);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 "name",
                 email,
-                21
+                21,
+                gender
+
         );
 
         underTest.insertCustomer(request);
@@ -100,6 +105,7 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getName()).isEqualTo(request.name());
         assertThat(capturedCustomer.getEmail()).isEqualTo(request.email());
         assertThat(capturedCustomer.getAge()).isEqualTo(request.age());
+        assertThat(capturedCustomer.getGender()).isEqualTo(request.gender());
 
 
     }
@@ -108,12 +114,15 @@ class CustomerServiceTest {
     void insertCustomerWillThrowWhenEmailAlreadyExists(){
         String email = "email@gmail.com";
 
+        Gender gender = Gender.MALE;
+
         when(customerRepository.existsCustomerByEmail(email)).thenReturn(true);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 "name",
                 email,
-                21
+                21,
+                gender
         );
 
 
@@ -157,7 +166,8 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
-                21
+                21,
+                Gender.MALE
 
         );
 
@@ -197,7 +207,8 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
-                21
+                21,
+                Gender.MALE
 
         );
 
@@ -230,7 +241,8 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
-                21
+                21,
+                Gender.MALE
 
         );
 
@@ -268,7 +280,8 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
-                21
+                21,
+                Gender.MALE
 
         );
 
@@ -301,7 +314,8 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
-                21
+                21,
+                Gender.MALE
 
         );
 
@@ -334,7 +348,8 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
-                21
+                21,
+                Gender.MALE
 
         );
 

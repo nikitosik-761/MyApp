@@ -1,6 +1,7 @@
 package com.fullApp.myApp.jdbc;
 
 import com.fullApp.myApp.models.Customer;
+import com.fullApp.myApp.models.Gender;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
@@ -21,6 +22,7 @@ class CustomerRowMapperTest {
         when(resultSet.getString("name")).thenReturn("John");
         when(resultSet.getString("email")).thenReturn("John@gmail.com");
         when(resultSet.getInt("age")).thenReturn(19);
+        when(resultSet.getString("gender")).thenReturn("MALE");
 
 
 
@@ -31,7 +33,8 @@ class CustomerRowMapperTest {
                 1L,
                 "John",
                 "John@gmail.com",
-                19
+                19,
+                Gender.MALE
         );
 
         assertThat(actual).isEqualTo(expected);

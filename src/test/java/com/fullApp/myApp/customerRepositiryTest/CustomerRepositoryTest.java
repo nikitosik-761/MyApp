@@ -2,6 +2,7 @@ package com.fullApp.myApp.customerRepositiryTest;
 
 import com.fullApp.myApp.AbstractTestcontainers;
 import com.fullApp.myApp.models.Customer;
+import com.fullApp.myApp.models.Gender;
 import com.fullApp.myApp.repo.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,7 @@ public class CustomerRepositoryTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.save(customer);
@@ -64,6 +66,7 @@ public class CustomerRepositoryTest extends AbstractTestcontainers {
                 .name(FAKER.name().fullName())
                 .email(email)
                 .age(21)
+                .gender(Gender.MALE)
                 .build();
 
         underTest.save(customer);

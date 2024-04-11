@@ -1,6 +1,7 @@
 package com.fullApp.myApp;
 
 import com.fullApp.myApp.models.Customer;
+import com.fullApp.myApp.models.Gender;
 import com.fullApp.myApp.repo.CustomerRepository;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
@@ -22,14 +23,15 @@ public class MyAppApplication {
 		return args -> {
 			Faker faker = new Faker();
 			Random random = new Random();
-
-			System.out.println("Test");
+			int age = random.nextInt(1,100);
+			Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
 
 			Customer customer =  Customer.builder()
 					.name(faker.name().fullName())
 					.email(faker.internet().safeEmailAddress())
-					.age(random.nextInt(100))
+					.age(age)
+					.gender(gender)
 					.build();
 
 			repository.save(customer);

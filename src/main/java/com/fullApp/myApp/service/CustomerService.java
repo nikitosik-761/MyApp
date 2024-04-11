@@ -40,6 +40,7 @@ public class CustomerService {
                 .name(registrationRequest.name())
                 .email(registrationRequest.email())
                 .age(registrationRequest.age())
+                .gender(registrationRequest.gender())
                                 .build();
 
 
