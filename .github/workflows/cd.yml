@@ -43,5 +43,5 @@ jobs:
       - name: Send Message TG
         run: >
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TG_TOKEN }}/sendMessage
-          -d text="New version has been released: https://github.com/nikitosik-761/MyApp/commit/${{ github.sha }} - ${{ github.event.head_commit.message }} ✔️"
+          -d text="New version has been released: https://github.com/nikitosik-761/MyApp/commit/${{ github.sha }} - ${{ github.event.head_commit.message }} ${'U+1F389'} $'U+1F389':tada: ${:tada:}"
           -d chat_id=${{ secrets.TG_CHAT }}
