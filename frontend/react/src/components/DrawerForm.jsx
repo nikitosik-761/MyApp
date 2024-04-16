@@ -3,14 +3,18 @@ import {
     Drawer,
     DrawerBody,
     DrawerCloseButton,
-    DrawerContent, DrawerFooter,
+    DrawerContent,
+    DrawerFooter,
     DrawerHeader,
-    DrawerOverlay, Input, useDisclosure
+    DrawerOverlay,
+    useDisclosure
 } from "@chakra-ui/react";
+import CreateCustomerForm from "./CreateCustomerForm.jsx";
 
 const AddIcon = () => "+"
+const CloseIcon = () => "-"
 
-const DrawerForm = () => {
+const DrawerForm = ({fetchCustomers}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return ( <>
@@ -25,23 +29,20 @@ const DrawerForm = () => {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Create your account</DrawerHeader>
+                    <DrawerHeader>Create new customer</DrawerHeader>
 
                     <DrawerBody>
-                        <form
-                            id='my-form'
-                            onSubmit={(e) => {
-                                e.preventDefault()
-                                console.log('submitted')
-                            }}
-                        >
-                            <Input name='nickname' placeholder='Type here...' />
-                        </form>
+                      <CreateCustomerForm
+                          fetchCustomers={fetchCustomers}
+                      />
                     </DrawerBody>
 
                     <DrawerFooter>
-                        <Button type='submit' form='my-form'>
-                            Save
+                        <Button leftIcon={<CloseIcon/>}
+                                onClick={onClose}
+                                colorScheme={"teal"}
+                        >
+                            Close
                         </Button>
                     </DrawerFooter>
                 </DrawerContent>
@@ -54,13 +55,3 @@ const DrawerForm = () => {
 }
 
 export default DrawerForm;
-
-export const App = () => {
-
-    return (
-        <>
-            <Button onClick={onOpen}>Open</Button>
-
-        </>
-    )
-}
