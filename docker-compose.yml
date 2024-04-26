@@ -43,6 +43,17 @@ services:
     command: bash -c "sleep 2"
     restart: unless-stopped
 
+  nikitosbarbos-frontend:
+    image: nikitosbarbos/frontend
+    container_name: nikitosbarbos/frontend
+    build:
+      context: frontend/react
+    ports:
+      - "3000:5173"
+    depends_on:
+      - nikitosbarbos-api
+    restart: unless-stopped
+
 networks:
   postgres:
     driver: bridge
