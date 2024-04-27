@@ -40,9 +40,6 @@ const App = () => {
     useEffect(() => {
        fetchCustomers();
     }, []);
-
-
-
     if (loading){
         return (
             <SidebarWithHeader>
@@ -56,6 +53,8 @@ const App = () => {
             </SidebarWithHeader>
         )
     }
+
+
 
 
 

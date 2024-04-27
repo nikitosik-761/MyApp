@@ -30,9 +30,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: frontend/react
           push: true
-          tags: name/app:latest, name/app:${{steps.build-number.outputs.BUILD_NUMBER}}
+          tags: latest, ${{steps.build-number.outputs.BUILD_NUMBER}}
       - name: Send Message TG
         run: >
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TG_TOKEN }}/sendMessage
