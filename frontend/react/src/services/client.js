@@ -7,7 +7,6 @@ export const getCustomers = async () => {
     }catch(e){
         throw e;
     }
-    //
 
 }
 
