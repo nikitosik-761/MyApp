@@ -21,6 +21,7 @@ class CustomerRowMapperTest {
         when(resultSet.getLong("id")).thenReturn(1L);
         when(resultSet.getString("name")).thenReturn("John");
         when(resultSet.getString("email")).thenReturn("John@gmail.com");
+        when(resultSet.getString("password")).thenReturn("password");
         when(resultSet.getInt("age")).thenReturn(19);
         when(resultSet.getString("gender")).thenReturn("MALE");
 
@@ -33,6 +34,7 @@ class CustomerRowMapperTest {
                 1L,
                 "John",
                 "John@gmail.com",
+                "password",
                 19,
                 Gender.MALE
         );

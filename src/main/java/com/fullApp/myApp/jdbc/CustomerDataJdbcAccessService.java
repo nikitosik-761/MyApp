@@ -46,13 +46,14 @@ public class CustomerDataJdbcAccessService implements CustomerDao{
     @Override
     public void insertCustomer(Customer customer) {
      var sql = """
-             INSERT INTO Customer(name, email, age, gender)
-             VALUES (?, ?, ?, ?);
+             INSERT INTO Customer(name, email, password ,age, gender)
+             VALUES (?, ?, ?, ?, ?);
              """;
      int result = jdbcTemplate.update(
              sql,
              customer.getName(),
              customer.getEmail(),
+             customer.getPassword(),
              customer.getAge(),
              customer.getGender().name()
      );

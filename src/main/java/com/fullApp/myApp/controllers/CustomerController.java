@@ -1,5 +1,7 @@
 package com.fullApp.myApp.controllers;
 
+import com.fullApp.myApp.dto.CustomerDTO;
+import com.fullApp.myApp.jwt.JwtUtil;
 import com.fullApp.myApp.models.Customer;
 import com.fullApp.myApp.models.CustomerRegistrationRequest;
 import com.fullApp.myApp.models.CustomerUpdateRequest;
@@ -7,6 +9,9 @@ import com.fullApp.myApp.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +22,7 @@ import java.util.List;
 @Tag(name="Customer Controller", description="CRUD Operations with customers")
 public class CustomerController {
     private final CustomerService customerService;
+    private final JwtUtil jwtUtil;
 
 
     @GetMapping
@@ -24,7 +30,7 @@ public class CustomerController {
             summary = "Get all customers",
             description = "Get all customers"
     )
-    public List<Customer> allCustomers(){
+    public List<CustomerDTO> allCustomers(){
         return customerService.selectAllCustomers();
     }
 
@@ -32,7 +38,7 @@ public class CustomerController {
     @Operation(
             summary = "Get 1 customer by id"
     )
-    public Customer findOne(
+    public CustomerDTO findOne(
             @PathVariable("id") Long id
     ){
         return customerService.findCustomerById(id);
@@ -42,11 +48,16 @@ public class CustomerController {
     @Operation(
             summary = "Register customer"
     )
-    public void registerCustomer(
+    public ResponseEntity<?> registerCustomer(
             @RequestBody CustomerRegistrationRequest registrationRequest
             ){
 
         customerService.insertCustomer(registrationRequest);
+       String jwtToken = jwtUtil.issueToken(registrationRequest.email(), "ROLE_USER");
+
+       return ResponseEntity.ok()
+               .header(HttpHeaders.AUTHORIZATION, jwtToken)
+               .build();
     }
 
     @DeleteMapping("/{id}")

@@ -1,31 +1,44 @@
 package com.fullApp.myApp.service;
 
+import com.fullApp.myApp.dto.CustomerDTO;
 import com.fullApp.myApp.exception.DuplicateException;
 import com.fullApp.myApp.exception.ResourceNotFound;
 import com.fullApp.myApp.models.Customer;
 import com.fullApp.myApp.models.CustomerRegistrationRequest;
 import com.fullApp.myApp.models.CustomerUpdateRequest;
 import com.fullApp.myApp.repo.CustomerRepository;
+import com.fullApp.myApp.utils.CustomerDTOMapper;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomerService {
-    private final CustomerRepository repository;
 
-    public List<Customer> selectAllCustomers(){
-        return repository.findAll();
+    private final CustomerRepository repository;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomerDTOMapper customerDTOMapper;
+
+    public List<CustomerDTO> selectAllCustomers(){
+        return repository.findAll().stream()
+                .map(customerDTOMapper)
+                .collect(Collectors.toList());
     }
 
 
 
-    public Customer findCustomerById(Long id){
-        return repository.findById(id).orElseThrow(
+    public CustomerDTO findCustomerById(Long id){
+        return repository.findById(id)
+                .map(customerDTOMapper)
+                .orElseThrow(
                 () -> new ResourceNotFound("Suck!")
-        );
+                );
     }
 
     public void insertCustomer(CustomerRegistrationRequest registrationRequest){
@@ -39,6 +52,7 @@ public class CustomerService {
         Customer customer = Customer.builder()
                 .name(registrationRequest.name())
                 .email(registrationRequest.email())
+                .password(passwordEncoder.encode(registrationRequest.password()))
                 .age(registrationRequest.age())
                 .gender(registrationRequest.gender())
                                 .build();

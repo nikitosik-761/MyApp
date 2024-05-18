@@ -1,5 +1,6 @@
 package com.fullApp.myApp.service;
 
+import com.fullApp.myApp.dto.CustomerDTO;
 import com.fullApp.myApp.exception.DuplicateException;
 import com.fullApp.myApp.exception.ResourceNotFound;
 import com.fullApp.myApp.models.Customer;
@@ -7,12 +8,14 @@ import com.fullApp.myApp.models.CustomerRegistrationRequest;
 import com.fullApp.myApp.models.CustomerUpdateRequest;
 import com.fullApp.myApp.models.Gender;
 import com.fullApp.myApp.repo.CustomerRepository;
+import com.fullApp.myApp.utils.CustomerDTOMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -27,9 +30,15 @@ class CustomerServiceTest {
     @Mock
     private CustomerRepository customerRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    private final CustomerDTOMapper customerDTOMapper = new CustomerDTOMapper();
+
+
     @BeforeEach
     void setUp() {
-        underTest = new CustomerService(customerRepository);
+        underTest = new CustomerService(customerRepository, passwordEncoder,customerDTOMapper);
     }
 
     @Test
@@ -48,6 +57,7 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
+                "password",
                 21,
                 Gender.MALE
 
@@ -55,10 +65,11 @@ class CustomerServiceTest {
 
         when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
 
+        CustomerDTO expected = customerDTOMapper.apply(customer);
 
-        Customer actual = underTest.findCustomerById(id);
+        CustomerDTO actual = underTest.findCustomerById(id);
 
-        assertThat(actual).isEqualTo(customer);
+        assertThat(actual).isEqualTo(expected);
 
     }
 
@@ -80,16 +91,21 @@ class CustomerServiceTest {
 
         String email = "email@gmail.com";
         Gender gender = Gender.MALE;
+        String password = "password";
 
         when(customerRepository.existsCustomerByEmail(email)).thenReturn(false);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 "name",
                 email,
+                password,
                 21,
                 gender
 
         );
+
+        String passwordHash = "pq309ern1";
+        when(passwordEncoder.encode(request.password())).thenReturn(passwordHash);
 
         underTest.insertCustomer(request);
 
@@ -106,6 +122,7 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getEmail()).isEqualTo(request.email());
         assertThat(capturedCustomer.getAge()).isEqualTo(request.age());
         assertThat(capturedCustomer.getGender()).isEqualTo(request.gender());
+        assertThat(capturedCustomer.getPassword()).isEqualTo(passwordHash);
 
 
     }
@@ -113,7 +130,7 @@ class CustomerServiceTest {
     @Test
     void insertCustomerWillThrowWhenEmailAlreadyExists(){
         String email = "email@gmail.com";
-
+        String password = "password";
         Gender gender = Gender.MALE;
 
         when(customerRepository.existsCustomerByEmail(email)).thenReturn(true);
@@ -121,6 +138,7 @@ class CustomerServiceTest {
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 "name",
                 email,
+                password,
                 21,
                 gender
         );
@@ -166,6 +184,7 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
+                "password",
                 21,
                 Gender.MALE
 
@@ -207,6 +226,7 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
+                "password",
                 21,
                 Gender.MALE
 
@@ -241,6 +261,7 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
+                "password",
                 21,
                 Gender.MALE
 
@@ -280,6 +301,7 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
+                "password",
                 21,
                 Gender.MALE
 
@@ -314,6 +336,7 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
+                "password",
                 21,
                 Gender.MALE
 
@@ -348,6 +371,7 @@ class CustomerServiceTest {
                 id,
                 "name",
                 "email",
+                "password",
                 21,
                 Gender.MALE
 

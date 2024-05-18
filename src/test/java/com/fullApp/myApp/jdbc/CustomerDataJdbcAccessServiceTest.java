@@ -30,6 +30,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(FAKER.name().fullName())
                 .email(FAKER.internet().safeEmailAddress() + "_" + UUID.randomUUID())
+                .password("password")
                 .age(21)
                 .gender(Gender.MALE)
                 .build();
@@ -51,6 +52,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(FAKER.name().fullName())
                 .email(email)
+                .password("password")
                 .age(21)
                 .gender(Gender.MALE)
                 .build();
@@ -99,6 +101,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(name)
                 .email(email)
+                .password("password")
                 .age(20)
                 .gender(Gender.MALE)
                 .build();
@@ -128,6 +131,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(FAKER.name().fullName())
                 .email(email)
+                .password("password")
                 .age(21)
                 .gender(Gender.MALE)
                 .build();
@@ -166,6 +170,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(FAKER.name().fullName())
                 .email(email)
+                .password("password")
                 .age(21)
                 .gender(Gender.MALE)
                 .build();
@@ -195,6 +200,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(FAKER.name().fullName())
                 .email(email)
+                .password("password")
                 .age(21)
                 .gender(Gender.MALE)
                 .build();
@@ -235,6 +241,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(FAKER.name().fullName())
                 .email(email)
+                .password("password")
                 .age(21)
                 .gender(Gender.MALE)
                 .build();
@@ -275,6 +282,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(FAKER.name().fullName())
                 .email(email)
+                .password("password")
                 .age(21)
                 .gender(Gender.MALE)
                 .build();
@@ -316,6 +324,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(FAKER.name().fullName())
                 .email(email)
+                .password("password")
                 .age(21)
                 .gender(Gender.MALE)
                 .build();
@@ -334,6 +343,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         update.setName("newName");
         update.setEmail(UUID.randomUUID().toString());
         update.setAge(100);
+        update.setPassword("password");
         update.setGender(customer.getGender());
 
         underTest.updateCustomer(update);
@@ -351,6 +361,7 @@ class CustomerDataJdbcAccessServiceTest extends AbstractTestcontainers {
         Customer customer = Customer.builder()
                 .name(FAKER.name().fullName())
                 .email(email)
+                .password("password")
                 .age(21)
                 .gender(Gender.MALE)
                 .build();
