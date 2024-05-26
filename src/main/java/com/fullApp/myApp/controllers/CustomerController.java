@@ -7,6 +7,7 @@ import com.fullApp.myApp.models.CustomerRegistrationRequest;
 import com.fullApp.myApp.models.CustomerUpdateRequest;
 import com.fullApp.myApp.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +31,7 @@ public class CustomerController {
             summary = "Get all customers",
             description = "Get all customers"
     )
+    @SecurityRequirement(name = "JWT")
     public List<CustomerDTO> allCustomers(){
         return customerService.selectAllCustomers();
     }
@@ -38,6 +40,7 @@ public class CustomerController {
     @Operation(
             summary = "Get 1 customer by id"
     )
+    @SecurityRequirement(name = "JWT")
     public CustomerDTO findOne(
             @PathVariable("id") Long id
     ){
@@ -48,6 +51,7 @@ public class CustomerController {
     @Operation(
             summary = "Register customer"
     )
+    @SecurityRequirement(name = "JWT")
     public ResponseEntity<?> registerCustomer(
             @RequestBody CustomerRegistrationRequest registrationRequest
             ){
@@ -64,6 +68,7 @@ public class CustomerController {
     @Operation(
             summary = "Delete customer by id"
     )
+    @SecurityRequirement(name = "JWT")
     public void deleteCustomer(
             @PathVariable("id") Long id
     ){
@@ -74,6 +79,7 @@ public class CustomerController {
     @Operation(
             summary = "Allows to update customer by id"
     )
+    @SecurityRequirement(name = "JWT")
     public void updateCustomer(
             @PathVariable("id") Long id,
             @RequestBody CustomerUpdateRequest request
