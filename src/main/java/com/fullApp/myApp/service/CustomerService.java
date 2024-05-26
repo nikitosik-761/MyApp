@@ -37,7 +37,7 @@ public class CustomerService {
         return repository.findById(id)
                 .map(customerDTOMapper)
                 .orElseThrow(
-                () -> new ResourceNotFound("Suck!")
+                () -> new ResourceNotFound("There is no customer with id: [%s]".formatted(id))
                 );
     }
 
