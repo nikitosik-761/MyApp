@@ -51,13 +51,13 @@ public class CustomerController {
     @Operation(
             summary = "Register customer"
     )
-    @SecurityRequirement(name = "JWT")
     public ResponseEntity<?> registerCustomer(
             @RequestBody CustomerRegistrationRequest registrationRequest
             ){
 
         customerService.insertCustomer(registrationRequest);
-       String jwtToken = jwtUtil.issueToken(registrationRequest.email(), "ROLE_USER");
+
+        String jwtToken = jwtUtil.issueToken(registrationRequest.email(), "ROLE_USER");
 
        return ResponseEntity.ok()
                .header(HttpHeaders.AUTHORIZATION, jwtToken)
