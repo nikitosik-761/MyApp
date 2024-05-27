@@ -20,6 +20,7 @@ public class MyAppApplication {
 		SpringApplication.run(MyAppApplication.class, args);
 	}
 
+	/*
 	@Bean
 	CommandLineRunner runner(
 			CustomerRepository repository,
@@ -45,5 +46,7 @@ public class MyAppApplication {
 
 		};
 	}
+
+	 */
 
 }
