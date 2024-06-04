@@ -118,7 +118,9 @@ const Login = () => {
                     src={"https://hamsterkombat.org/images/hamster-coin.png"} boxSize={"100px"} alt={"Hamster Logo"}  />
                     <Heading fontSize={'2xl'} mb={15}>Sign in to your account</Heading>
                     <LoginForm />
-
+                    <Link color={"blue.500"} href={"/signup"}>
+                        Don't have an account? Sign up!
+                    </Link>
 
                 </Stack>
             </Flex>
