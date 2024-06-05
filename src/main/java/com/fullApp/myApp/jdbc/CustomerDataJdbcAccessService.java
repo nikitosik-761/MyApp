@@ -26,7 +26,7 @@ public class CustomerDataJdbcAccessService implements CustomerDao{
     @Override
     public List<Customer> selectAllCustomers() {
         var sql = """
-                SELECT * FROM Customer;
+                SELECT * FROM Customer LIMIT 15;
                 """;
 
 

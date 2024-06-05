@@ -35,6 +35,7 @@ public class SecurityFilterChainConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST,"/api/v1/**", "/api/v1/auth/login").permitAll()
                         .requestMatchers(SWAGGER_WHITE_LIST_URL).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
